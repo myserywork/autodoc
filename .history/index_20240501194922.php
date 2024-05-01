@@ -65,8 +65,6 @@ if (isset($convenioId)) {
         </div>
     </div>
 
-    
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
     <script>
@@ -162,51 +160,31 @@ if (isset($convenioId)) {
             input.onchange = () => {
                 const file = input.files[0];
                 if (file) {
-                    uploadAndResizeImage(file);
+                    uploadImage(file);
                 }
             };
         }
-        function uploadAndResizeImage(file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.onload = function () {
-                    const range = quill.getSelection();
-                    const resize = window.prompt('Enter custom width (e.g., "300px" or "100%"):');
-                    if(resize) {
-                        img.style.width = resize;
-                    }
-                    const align = window.prompt('Enter alignment (left, center, right):');
-                    if(align) {
-                        img.style.display = 'block';
-                        img.style.marginLeft = align === 'center' ? 'auto' : '0';
-                        img.style.marginRight = align === 'center' ? 'auto' : '0';
-                        img.style.float = align === 'left' ? 'left' : align === 'right' ? 'right' : 'none';
-                    }
-                    const formData = new FormData();
-                    formData.append('image', file);
-                    fetch('upload.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.status === 'success') {
-                            quill.insertEmbed(range.index, 'image', result.url);
-                            quill.setSelection(range.index + 1);
-                        } else {
-                            console.error(result.error);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error uploading image:', error);
-                    });
-                };
-            };
-            reader.readAsDataURL(file);
-        }
 
+        function uploadImage(file) {
+            const formData = new FormData();
+            formData.append('image', file);
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.status === 'success') {
+                    const range = quill.getSelection();
+                    quill.insertEmbed(range.index, 'image', result.url);
+                } else {
+                    console.error(result.error);
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao fazer upload da imagem:', error);
+            });
+        }
     </script>
 </body>
 </html>

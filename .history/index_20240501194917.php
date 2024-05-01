@@ -30,6 +30,24 @@ if (isset($convenioId)) {
 </head>
 
 <body>
+    <div class="row" style="padding:1rem;">
+        <div class="col-sm-12">
+            <input type="text" class="form-control" name="nome_modelo" >
+
+            <select class="custom-select ql-insertCustomTags" style="margin-bottom: 10px;">
+                <?php
+                require_once('sqlite.php');
+                $db = new SQLiteDB('convenios.db');
+                $columns = $db->query("PRAGMA table_info(convenios)");
+                while ($col = $columns->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<option value='{$col['name']}' data-marker='%[{$col['name']}]%' data-title='%{$col['name']}%' data-colour='warning'>{$col['name']}</option>";
+                }
+                ?>
+            </select>
+            <div id="editor"></div>
+            <button class="btn btn-success" onclick="salvarConteudo()">Salvar</button>
+        </div>
+    </div>
 
     <div class="container mt-5">
         <div class="card">
@@ -64,8 +82,6 @@ if (isset($convenioId)) {
             </div>
         </div>
     </div>
-
-    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
@@ -162,51 +178,31 @@ if (isset($convenioId)) {
             input.onchange = () => {
                 const file = input.files[0];
                 if (file) {
-                    uploadAndResizeImage(file);
+                    uploadImage(file);
                 }
             };
         }
-        function uploadAndResizeImage(file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.onload = function () {
-                    const range = quill.getSelection();
-                    const resize = window.prompt('Enter custom width (e.g., "300px" or "100%"):');
-                    if(resize) {
-                        img.style.width = resize;
-                    }
-                    const align = window.prompt('Enter alignment (left, center, right):');
-                    if(align) {
-                        img.style.display = 'block';
-                        img.style.marginLeft = align === 'center' ? 'auto' : '0';
-                        img.style.marginRight = align === 'center' ? 'auto' : '0';
-                        img.style.float = align === 'left' ? 'left' : align === 'right' ? 'right' : 'none';
-                    }
-                    const formData = new FormData();
-                    formData.append('image', file);
-                    fetch('upload.php', {
-                        method: 'POST',
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(result => {
-                        if (result.status === 'success') {
-                            quill.insertEmbed(range.index, 'image', result.url);
-                            quill.setSelection(range.index + 1);
-                        } else {
-                            console.error(result.error);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error uploading image:', error);
-                    });
-                };
-            };
-            reader.readAsDataURL(file);
-        }
 
+        function uploadImage(file) {
+            const formData = new FormData();
+            formData.append('image', file);
+            fetch('upload.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.status === 'success') {
+                    const range = quill.getSelection();
+                    quill.insertEmbed(range.index, 'image', result.url);
+                } else {
+                    console.error(result.error);
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao fazer upload da imagem:', error);
+            });
+        }
     </script>
 </body>
 </html>

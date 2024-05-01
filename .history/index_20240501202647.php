@@ -76,8 +76,7 @@ if (isset($convenioId)) {
             static create(value) {
                 let node = super.create(value);
                 node.setAttribute('class', 'badge badge-' + value.colour);
-                node.setAttribute('data-marker', value.marker);
-                node.setAttribute('data-title', value.title);
+       
                 node.innerHTML = value.title;
                 return node;
             }

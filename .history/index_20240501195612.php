@@ -65,91 +65,24 @@ if (isset($convenioId)) {
         </div>
     </div>
 
-    
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
     <script>
-        var Embed = Quill.import('blots/embed');
-
-        class TemplateMarker extends Embed {
-            static create(value) {
-                let node = super.create(value);
-                node.setAttribute('class', 'badge badge-' + value.colour);
-                node.setAttribute('data-marker', value.marker);
-                node.setAttribute('data-title', value.title);
-                node.innerHTML = value.title;
-                return node;
-            }
-
-            static value(node) {
-                return {
-                    marker: node.getAttribute('data-marker'),
-                    title: node.getAttribute('data-title')
-                };
-            }
-        }
-
-        TemplateMarker.blotName = 'TemplateMarker';
-        TemplateMarker.tagName = 'span';
-        Quill.register('formats/TemplateMarker', TemplateMarker);
-
-        var toolbarOptions = [
-            ['bold', 'italic', 'underline', 'strike'],
-            ['blockquote', 'code-block'],
-            [{ 'header': 1 }, { 'header': 2 }],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            ['link', 'image', 'video'],
-            [{ 'color': [] }, { 'background': [] }],
-            ['clean']
-        ];
-
-        var options = {
+        var quill = new Quill('#editor', {
             modules: {
-                toolbar: toolbarOptions
+                toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    ['blockquote', 'code-block'],
+                    [{ 'header': 1 }, { 'header': 2 }],
+                    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                    ['link', 'image', 'video'],
+                    [{ 'color': [] }, { 'background': [] }],
+                    ['clean']
+                ]
             },
             placeholder: 'Digite o conteúdo aqui...',
             theme: 'snow'
-        };
-
-        var quill = new Quill('#editor', options);
-
-
-        $('.ql-insertCustomTags').on('change', function () {
-        let selectedOption = $(this).find(':selected');
-        let range = quill.getSelection(true);
-
-        quill.insertEmbed(
-            range.index,
-            'TemplateMarker',
-            {
-                colour: selectedOption.data('colour'),
-                marker: selectedOption.data('marker'),
-                title: selectedOption.data('title')
-            },
-            Quill.sources.USER
-        );
-
-        quill.insertText(range.index + 1, ' ', Quill.sources.USER);
-        quill.setSelection(range.index + 2, Quill.sources.SILENT);
-        $(this).val("");
-    });
-
-        function salvarConteudo() {
-        var conteudoHtml = quill.root.innerHTML; // Obter o HTML do editor
-        $.ajax({
-            type: "POST",
-            url: "salvar.php", // URL do script PHP para salvar o conteúdo
-            data: {html: conteudoHtml, idConvenio : <?= $convenioId ?>}, // Enviar HTML como dado
-            success: function(response) {
-                alert('Conteúdo salvo com sucesso!');
-            },
-            error: function() {
-                alert('Erro ao salvar o conteúdo.');
-            }
         });
-    }
-
 
         quill.getModule('toolbar').addHandler('image', () => {
             selectLocalImage();
@@ -166,6 +99,7 @@ if (isset($convenioId)) {
                 }
             };
         }
+
         function uploadAndResizeImage(file) {
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -206,7 +140,6 @@ if (isset($convenioId)) {
             };
             reader.readAsDataURL(file);
         }
-
     </script>
 </body>
 </html>
