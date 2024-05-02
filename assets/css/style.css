@@ -326,6 +326,6 @@ html, body {margin:0;padding:0;height:100%;}
 
 .card-documentos {
     border-radius: 16px;
-    width: 30%;
+    width: 100%;
     background-color: rgba(22, 119, 255, 0.05);
 }

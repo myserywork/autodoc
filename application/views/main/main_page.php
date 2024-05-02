@@ -65,31 +65,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card-body" style="border-radius: 8px;background: #FFF;">
-                        <div class="row mb-3"></div>
-                        <div class="row mb-3">
-                            <a class="main-card-last-doc-text" href="#" style="text-decoration: none">Capacitar e formar redes na Agroecologia e Econômia solida na regi...</a>
-                        </div>
-                        <div class="row mb-3"></div>
-                        <div class="row mb-3">
-                            <a class="main-card-last-doc-text" href="#" style="text-decoration: none">Cooperação entre UFOP e a Sociedade Beneficente Sao Carlos sobre...</a>
-                        </div>
-                        <div class="row mb-3"></div>
-                        <div class="row mb-3">
-                            <a class="main-card-last-doc-text" href="#" style="text-decoration: none">Documento do SEFAZ PB - Janeiro e Fevereiro 23/24</a>
-                        </div>
-                        <div class="row mb-3"></div>
-                        <div class="row mb-3">
-                            <a class="main-card-last-doc-text" href="#" style="text-decoration: none">Obras de Infraestrutura Producao de 239 UH pelo MCM...</a>
-                        </div>
-                        <div class="row mb-3"></div>
-                        <div class="row mb-3">
-                            <a class="main-card-last-doc-text" href="#" style="text-decoration: none">Documento do SEFAZ PB - Março e Abril 22/21</a>
-                        </div>
-                        <div class="row mb-3"></div>
-                        <div class="row mb-3">
-                            <a class="main-card-last-doc-text" href="#" style="text-decoration: none">Documento da secretaria do estado de São Paulo - Novembro 23</a>
-                        </div>
+                    <div class="card-body" style="border-radius: 8px;background: #FFF;min-height:300px;">
+                        <?php foreach($documentos as $doc): ?>
+                            <div class="row mb-3"></div>
+                            <div class="row mb-3">
+                                <a class="main-card-last-doc-text" href="<?=base_url('documentos/modelo/').$doc->id_convenio.'/'.$doc->id;?>" style="text-decoration: none"><?=$doc->nome;?></a>
+                            </div>
+                        <?php endforeach; ?>
+                        
                     </div>
 
                 </div>
