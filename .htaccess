@@ -1,0 +1,13 @@
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond $1 !^(index\.php|robots\.txt)
+# if Serves works on Linux OS
+RewriteRule ^(.*)$ index.php/$1
+# if Server works on Windows OS
+# RewriteRule ^(.*)$ index.php?/$1
+RewriteCond %{REQUEST_FILENAME} !-f
+# if Serves works on Linux OS
+RewriteRule ^(application|modules|plugins|system|themes|library|files) index.php/$1 [L]
+# if Server works on Windows OS
+# RewriteRule ^(application|modules|plugins|system|themes|library|files) index.php?/$1 [L]
