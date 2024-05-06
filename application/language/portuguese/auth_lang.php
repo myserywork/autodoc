@@ -7,7 +7,7 @@
 *         @alphabraga
 *
 *
-* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
+* Location: http://github.com/benedmunds/ion_auth/
 *
 * Created:  03.09.2013
 *
@@ -23,6 +23,7 @@ $lang['login_heading']         = 'Login';
 $lang['login_subheading']      = 'Por favor entre com seu login/email e senha abaixo.';
 $lang['login_identity_label']  = 'Login/Email:';
 $lang['login_password_label']  = 'Senha:';
+$lang['login_place_label']     = 'Localidade:';
 $lang['login_remember_label']  = 'Lembre-me:';
 $lang['login_submit_btn']      = 'Login';
 $lang['login_forgot_password'] = 'Esqueceu sua senha?';
@@ -133,7 +134,7 @@ $lang['forgot_password_subheading']              = 'Por favor, informe seu %s pa
 $lang['forgot_password_email_label']             = '%s:';
 $lang['forgot_password_submit_btn']              = 'Enviar';
 $lang['forgot_password_validation_email_label']  = 'Email';
-$lang['forgot_password_identity_label']          = 'Login';
+$lang['forgot_password_username_identity_label'] = 'Login';
 $lang['forgot_password_email_identity_label']    = 'Email';
 $lang['forgot_password_email_not_found']         = 'Este email não foi encontrado.';
 $lang['forgot_password_identity_not_found']         = 'No record of that username address.';
@@ -143,5 +144,5 @@ $lang['reset_password_heading']                               = 'Mudar Senha';
 $lang['reset_password_new_password_label']                    = 'Nova senha: (mínimo de %s caracteres)';
 $lang['reset_password_new_password_confirm_label']            = 'Confirme sua Nova Senha:';
 $lang['reset_password_submit_btn']                            = 'Mudar';
-$lang['reset_password_validation_new_password_label']         = 'Nova Senha';
+$lang['reset_password_validation_new_password_label']         = 'Senha Antiga';
 $lang['reset_password_validation_new_password_confirm_label'] = 'Confirme sua Nova Senha';

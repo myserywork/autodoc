@@ -21,6 +21,11 @@ class Auth extends CI_Controller
 		$this->lang->load('auth');
 	}
 
+	public function auth_render_view($page = '')
+	{
+		$this->load->view($page, $this->data);
+	}
+
 	/**
 	 * Redirect if needed, otherwise display the user list
 	 */
@@ -55,7 +60,13 @@ class Auth extends CI_Controller
 				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
 
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'index', $this->data);
+			$this->data['css_to_load'] = array();
+			$this->data['js_to_load'] = array(
+				
+			);
+			$this->data['title'] = 'Configurações';
+			$this->data['view'] = 'auth' . DIRECTORY_SEPARATOR . 'index';
+			$this->auth_render_view('theme/model');
 		}
 	}
 
@@ -414,7 +425,13 @@ class Auth extends CI_Controller
 			$this->data['user'] = $this->ion_auth->user($id)->row();
 			$this->data['identity'] = $this->config->item('identity', 'ion_auth');
 
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'deactivate_user', $this->data);
+			$this->data['css_to_load'] = array();
+			$this->data['js_to_load'] = array(
+				
+			);
+			$this->data['title'] = 'Configurações';
+			$this->data['view'] = 'auth' . DIRECTORY_SEPARATOR . 'deactivate_user';
+			$this->auth_render_view('theme/model');
 		}
 		else
 		{
@@ -502,52 +519,66 @@ class Auth extends CI_Controller
 				'name' => 'first_name',
 				'id' => 'first_name',
 				'type' => 'text',
+				'class' => 'form-control',
 				'value' => $this->form_validation->set_value('first_name'),
 			];
 			$this->data['last_name'] = [
 				'name' => 'last_name',
 				'id' => 'last_name',
 				'type' => 'text',
+				'class' => 'form-control',
 				'value' => $this->form_validation->set_value('last_name'),
 			];
 			$this->data['identity'] = [
 				'name' => 'identity',
 				'id' => 'identity',
 				'type' => 'text',
+				'class' => 'form-control',
 				'value' => $this->form_validation->set_value('identity'),
 			];
 			$this->data['email'] = [
 				'name' => 'email',
 				'id' => 'email',
 				'type' => 'text',
+				'class' => 'form-control',
 				'value' => $this->form_validation->set_value('email'),
 			];
 			$this->data['company'] = [
 				'name' => 'company',
 				'id' => 'company',
 				'type' => 'text',
+				'class' => 'form-control',
 				'value' => $this->form_validation->set_value('company'),
 			];
 			$this->data['phone'] = [
 				'name' => 'phone',
 				'id' => 'phone',
 				'type' => 'text',
+				'class' => 'form-control',
 				'value' => $this->form_validation->set_value('phone'),
 			];
 			$this->data['password'] = [
 				'name' => 'password',
 				'id' => 'password',
 				'type' => 'password',
+				'class' => 'form-control',
 				'value' => $this->form_validation->set_value('password'),
 			];
 			$this->data['password_confirm'] = [
 				'name' => 'password_confirm',
 				'id' => 'password_confirm',
 				'type' => 'password',
+				'class' => 'form-control',
 				'value' => $this->form_validation->set_value('password_confirm'),
 			];
 
-			$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $this->data);
+			$this->data['css_to_load'] = array();
+			$this->data['js_to_load'] = array(
+				
+			);
+			$this->data['title'] = 'Configurações';
+			$this->data['view'] = 'auth' . DIRECTORY_SEPARATOR . 'create_user';
+			$this->auth_render_view('theme/model');
 		}
 	}
 	/**
@@ -669,38 +700,50 @@ class Auth extends CI_Controller
 			'name'  => 'first_name',
 			'id'    => 'first_name',
 			'type'  => 'text',
+			'class' => 'form-control',
 			'value' => $this->form_validation->set_value('first_name', $user->first_name),
 		];
 		$this->data['last_name'] = [
 			'name'  => 'last_name',
 			'id'    => 'last_name',
 			'type'  => 'text',
+			'class' => 'form-control',
 			'value' => $this->form_validation->set_value('last_name', $user->last_name),
 		];
 		$this->data['company'] = [
 			'name'  => 'company',
 			'id'    => 'company',
 			'type'  => 'text',
+			'class' => 'form-control',
 			'value' => $this->form_validation->set_value('company', $user->company),
 		];
 		$this->data['phone'] = [
 			'name'  => 'phone',
 			'id'    => 'phone',
 			'type'  => 'text',
+			'class' => 'form-control',
 			'value' => $this->form_validation->set_value('phone', $user->phone),
 		];
 		$this->data['password'] = [
 			'name' => 'password',
 			'id'   => 'password',
+			'class' => 'form-control',
 			'type' => 'password'
 		];
 		$this->data['password_confirm'] = [
 			'name' => 'password_confirm',
 			'id'   => 'password_confirm',
+			'class' => 'form-control',
 			'type' => 'password'
 		];
 
-		$this->_render_page('auth/edit_user', $this->data);
+		$this->data['css_to_load'] = array();
+		$this->data['js_to_load'] = array(
+			
+		);
+		$this->data['title'] = 'Configurações';
+		$this->data['view'] = 'auth/edit_user';
+		$this->auth_render_view('theme/model');
 	}
 
 	/**
@@ -742,17 +785,24 @@ class Auth extends CI_Controller
 			'name'  => 'group_name',
 			'id'    => 'group_name',
 			'type'  => 'text',
+			'class' => 'form-control',
 			'value' => $this->form_validation->set_value('group_name'),
 		];
 		$this->data['description'] = [
 			'name'  => 'description',
 			'id'    => 'description',
 			'type'  => 'text',
+			'class' => 'form-control',
 			'value' => $this->form_validation->set_value('description'),
 		];
 
-		$this->_render_page('auth/create_group', $this->data);
-		
+		$this->data['css_to_load'] = array();
+		$this->data['js_to_load'] = array(
+			
+		);
+		$this->data['title'] = 'Configurações';
+		$this->data['view'] = 'auth' . DIRECTORY_SEPARATOR . 'create_group';
+		$this->auth_render_view('theme/model');		
 	}
 
 	/**
@@ -810,6 +860,7 @@ class Auth extends CI_Controller
 			'name'    => 'group_name',
 			'id'      => 'group_name',
 			'type'    => 'text',
+			'class' => 'form-control',
 			'value'   => $this->form_validation->set_value('group_name', $group->name),
 		];
 		if ($this->config->item('admin_group', 'ion_auth') === $group->name) {
@@ -820,10 +871,17 @@ class Auth extends CI_Controller
 			'name'  => 'group_description',
 			'id'    => 'group_description',
 			'type'  => 'text',
+			'class' => 'form-control',
 			'value' => $this->form_validation->set_value('group_description', $group->description),
 		];
 
-		$this->_render_page('auth' . DIRECTORY_SEPARATOR . 'edit_group', $this->data);
+		$this->data['css_to_load'] = array();
+		$this->data['js_to_load'] = array(
+			
+		);
+		$this->data['title'] = 'Configurações';
+		$this->data['view'] = 'auth' . DIRECTORY_SEPARATOR . 'edit_group';
+		$this->auth_render_view('theme/model');
 	}
 
 	/**

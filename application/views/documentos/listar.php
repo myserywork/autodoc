@@ -19,7 +19,7 @@
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Pesquisar por nome...">
+                            <input id="searchNome" type="text" class="form-control" placeholder="Pesquisar por nome...">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -29,11 +29,11 @@
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Pesquisar por número do convênio...">
+                            <input id="searchConvenio" type="text" class="form-control" placeholder="Pesquisar por número do convênio...">
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <select class="form-select" >
+                        <select id="searchTipo" class="form-select" >
                             <option selected>Selecione o Tipo...</option>
                             <option value="Artigo">Artigo</option>
                             <option value="Dinâmico">Dinâmico</option>
@@ -56,50 +56,9 @@
     </div>
 </div>
 
-
-<script>
-    function carregarCards() {
-        const cardsContainer = document.getElementById('cards-container');
-
-        // Substitua a URL da API pela URL da sua API
-        const base_url = $('#base_url').val();
-        const apiUrl = base_url + 'documentos/getDocumentos';
-
-
-        fetch(apiUrl) // Faz uma requisição GET para a API
-            .then(response => {
-                // Verifica se a requisição foi bem sucedida
-                if (!response.ok) {
-                    throw new Error('Erro ao carregar os dados');
-                }
-                // Converte a resposta para JSON
-                return response.json();
-            })
-            .then(data => {
-                // Itera sobre os dados e cria os cards
-                data.forEach(item => {
-                    // Cria um elemento <div> para o card
-                    const card = document.createElement('div');
-                    card.classList.add('card', 'w-100', 'mb-3');
-
-                    // Adiciona o conteúdo ao card
-                    card.innerHTML = `
-                    <div class="card-body card-documentos">
-                        <h5 class="card-title mb-3 convenio-card-state"><i class="fa fa-calendar" aria-hidden="true"></i>  ${item.criado_em}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted convenio-card-title">
-                            <a href="${base_url}documentos/modelo/${item.id_convenio}/${item.id}">${item.nome}</a>
-                        </h6>
-                    </div>
-                `;
-                    // Adiciona o card ao container
-                    cardsContainer.appendChild(card);
-                });
-            })
-            .catch(error => {
-                console.error('Erro ao carregar os dados:', error);
-            });
-    }
-
-    // Chama a função para carregar os cards quando a página carrega
-    document.addEventListener('DOMContentLoaded', carregarCards);
-</script>
+<div class="row">
+    <div class="pagination-container">
+        <ul id="pagination" class="pagination" >
+        </ul>
+    </div>
+</div>

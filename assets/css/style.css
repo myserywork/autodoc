@@ -1,331 +1,360 @@
-html, body {margin:0;padding:0;height:100%;}
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
 
 #wrapper {
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 #nav {
-    position:fixed;
-    width: 280px;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    border-right: 1px solid #162636;
-    height: 100%;
-  }
-
-#sidebar {
-    background-color: #FFF;
+	position: fixed;
+	width: 280px;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	border-right: 1px solid #162636;
+	height: 100%;
 }
 
 #sidebar {
-    left: 0;
-    position: fixed;
-    height: 100%;
-    z-index: 30;
+	background-color: #fff;
+}
+
+#sidebar {
+	left: 0;
+	position: fixed;
+	height: 100%;
+	z-index: 30;
 }
 
 .sidebar-nav {
-    top: 0;
-    width: 100%;
-    list-style: none;
-    margin: 0;
-    padding: 0;
+	top: 0;
+	width: 100%;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
 .sidebar-nav > li {
-    position: relative;
-    display: block;
+	position: relative;
+	display: block;
 }
 
 .sidebar-nav li ul li {
-    position: relative;
-    display: block;
+	position: relative;
+	display: block;
 }
 
 .sidebar-nav a {
-    color: #adadad;
-    display: block;
-    text-decoration: none;
+	color: #adadad;
+	display: block;
+	text-decoration: none;
 }
 
 .sidebar-nav a:hover {
-    color: #fff;
+	color: #fff;
 }
 
 .sidebar-nav a i {
-    padding-right: 10px;
-    -webkit-transition: color 0.15s linear;
-    -moz-transition: color 0.15s linear;
-    -o-transition: color 0.15s linear;
-    transition: color 0.15s linear;
+	padding-right: 10px;
+	-webkit-transition: color 0.15s linear;
+	-moz-transition: color 0.15s linear;
+	-o-transition: color 0.15s linear;
+	transition: color 0.15s linear;
 }
 
 .sidebar-nav a:hover i {
-    color: #3187d6;
+	color: #3187d6;
 }
 
 .sidebar-nav a i.fa,
 .sidebar-nav a i.glyph-icon {
-    font-size: 18px;
+	font-size: 18px;
 }
 
 .sidebar-nav li.current a:hover i {
-    color: #fff;
+	color: #fff;
 }
 
 .sidebar-nav li.current a {
-    color: #fff;
-    background-color: #16191f;
-    border-left: 3px solid #00a2d9;
+	color: #fff;
+	background-color: #16191f;
+	border-left: 3px solid #00a2d9;
 }
 
 .sidebar-nav li.current.hasSub a {
-    border-left: none;
+	border-left: none;
 }
 
 .sidebar-nav li.current li.current a {
-    color: #fff;
-    background-color: #16191f;
-    border-left: 3px solid #00a2d9;
+	color: #fff;
+	background-color: #16191f;
+	border-left: 3px solid #00a2d9;
 }
 
 .sidebar-nav > li.current > a:after {
-    width: 0;
-    height: 0;
-    border-top: 9px solid transparent;
-    border-bottom: 9px solid transparent;
-    border-right: 9px solid #dfe5e9;
-    content: "";
-    position: absolute;
-    top: 50%;
-    margin-top: -9px;
-    right: 0;
-    z-index: 5;
+	width: 0;
+	height: 0;
+	border-top: 9px solid transparent;
+	border-bottom: 9px solid transparent;
+	border-right: 9px solid #dfe5e9;
+	content: "";
+	position: absolute;
+	top: 50%;
+	margin-top: -9px;
+	right: 0;
+	z-index: 5;
 }
 
 #sidebar ul.submenu a {
-    background-color: #34383f;
-    padding: 11px 28px 11px 45px;
-    font-size: 13px;
-    text-align: left;
+	background-color: #34383f;
+	padding: 11px 28px 11px 45px;
+	font-size: 13px;
+	text-align: left;
 }
 
 #sidebar ul.submenu a:after {
-    z-index: 1;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: red;
-    left: -12px;
-    top: 13px;
-    bottom: auto;
-    border-color: transparent;
-    -webkit-box-shadow: 0 0 0 2px red;
-    box-shadow: 0 0 0 2px red;
+	z-index: 1;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background-color: red;
+	left: -12px;
+	top: 13px;
+	bottom: auto;
+	border-color: transparent;
+	-webkit-box-shadow: 0 0 0 2px red;
+	box-shadow: 0 0 0 2px red;
 }
 
 .sidebar-large #wrapper {
-    padding-left: 280px;
+	padding-left: 280px;
 }
 
 .sidebar-large #sidebar {
-    width: 280px;
-    overflow: hidden;
+	width: 280px;
+	overflow: hidden;
 }
 
 .sidebar-large #sidebar .sidebar-img {
-    max-width: 26px;
-    max-height: 26px;
-    padding-right: 8px;
+	max-width: 26px;
+	max-height: 26px;
+	padding-right: 8px;
 }
 
 .sidebar-large .sidebar-nav li a {
-    padding: 11px 20px 11px 28px;
+	padding: 11px 20px 11px 28px;
 }
 
 .sidebar-large .sidebar-nav li.last {
-    margin-bottom: 245px !important;
+	margin-bottom: 245px !important;
 }
 
 .sidebar-large .sidebar-nav > li.current.hasSub > a:after {
-    display: none;
+	display: none;
 }
 
 .sidebar-large .sidebar-nav > li.current li.current > a:after {
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 9px 9px 9px 0;
-    border-color: rgba(226, 226, 226, 0) #dfe5e9 rgba(226, 226, 226, 0)
-        rgba(226, 226, 226, 0);
-    content: "";
-    position: absolute;
-    top: 50%;
-    margin-top: -9px;
-    right: 0;
-    z-index: 5;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 9px 9px 9px 0;
+	border-color: rgba(226, 226, 226, 0) #dfe5e9 rgba(226, 226, 226, 0)
+		rgba(226, 226, 226, 0);
+	content: "";
+	position: absolute;
+	top: 50%;
+	margin-top: -9px;
+	right: 0;
+	z-index: 5;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
-    color: #2F74DE !important;
-    background-color: rgba(69, 128, 222, 0.10) !important;
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+	color: #2f74de !important;
+	background-color: rgba(69, 128, 222, 0.1) !important;
 }
 
 .main-content {
-    position: relative;
-    background-color: #F3F5F9;
-    padding: 10px 20px;
-    width: 100%;
-    min-height: 100vh;
+	position: relative;
+	background-color: #f3f5f9;
+	padding: 10px 20px;
+	width: 100%;
+	min-height: 100vh;
 }
 
 .page {
-    width: 90%;
+	width: 90%;
 }
 
 .main-img-header {
-    width: 100%;
-    height: auto;
-    border-radius: 16px;
+	width: 100%;
+	height: auto;
+	border-radius: 16px;
 }
 
 .center-block {
-    display: block;
-    margin-left: auto !important;
-    margin-right: auto !important;
+	display: block;
+	margin-left: auto !important;
+	margin-right: auto !important;
 }
 
 .main-card-text {
-    color: rgba(0, 0, 0, 0.60);
-    font-family: Inter;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 22px; /* 157.143% */
+	color: rgba(0, 0, 0, 0.6);
+	font-family: Inter;
+	font-size: 18px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 22px; /* 157.143% */
 }
 
-.card, .card-header {
-    border: none !important;
+.card,
+.card-header {
+	border: none !important;
 }
 
 .card .card-header {
-    border: none !important;
+	border: none !important;
 }
 
 .card-convenios {
-    border-radius: 16px;
+	border-radius: 16px;
 }
 
 .card-convenios:hover {
-    background-color: rgba(22, 119, 255, 0.05);;
+	background-color: rgba(22, 119, 255, 0.05);
 }
 
 .main-card-last-doc-text {
-    color: #1677FF;
-    font-family: Inter;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px; /* 133.333% */
+	color: #1677ff;
+	font-family: Inter;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 16px; /* 133.333% */
 }
 
 .main-card-last-doc-text:hover {
-    color: rgba(22, 119, 255, 0.80)
+	color: rgba(22, 119, 255, 0.8);
 }
 
 .main-card-last-doc-text-plus {
-    color:  #1677FF;
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 22px; /* 157.143% */
+	color: #1677ff;
+	font-family: Inter;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 22px; /* 157.143% */
 }
 
-.main-card-convenios-text { 
-    color: rgba(0, 0, 0, 0.75);
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 22px; /* 157.143% */
+.main-card-convenios-text {
+	color: rgba(0, 0, 0, 0.75);
+	font-family: Inter;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 22px; /* 157.143% */
 }
 
-.main-card-convenios-numbers { 
-    color: rgba(0, 0, 0, 0.75);
-    font-family: Inter;
-    font-size: 48px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 54px;
+.main-card-convenios-numbers {
+	color: rgba(0, 0, 0, 0.75);
+	font-family: Inter;
+	font-size: 48px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 54px;
 }
 
 .align-bottom {
-    position: absolute;
-    bottom: 0;
-    margin: 0 0 2em 0;
-    left: 0;
-    right: 0;
+	position: absolute;
+	bottom: 0;
+	margin: 0 0 2em 0;
+	left: 0;
+	right: 0;
 }
 
 .progress {
-    border-radius: 0 !important;
+	border-radius: 0 !important;
 }
 
 .convenio-header {
-    color: rgba(0, 0, 0, 0.70);
-    font-family: Inter;
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 26px;
+	color: rgba(0, 0, 0, 0.7);
+	font-family: Inter;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: 26px;
 }
 
 .convenio-card-state {
-    color: #687589;
-    font-family: Inter;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px; /* 160% */
+	color: #687589;
+	font-family: Inter;
+	font-size: 10px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 16px; /* 160% */
 }
 
 .convenio-card-title {
-    color: rgba(0, 0, 0, 0.75);
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px; /* 114.286% */
+	color: rgba(0, 0, 0, 0.75);
+	font-family: Inter;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 16px; /* 114.286% */
 }
 
 .convenio-card-status {
-    color: #687589;
-    font-family: Inter;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px; /* 133.333% */
+	color: #687589;
+	font-family: Inter;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 16px; /* 133.333% */
 }
 
 .convenio-card-dates {
-    color: #687589;
-    font-family: Inter;
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px; /* 160% */
+	color: #687589;
+	font-family: Inter;
+	font-size: 10px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 16px; /* 160% */
 }
 
 .input-group-text {
-    border-radius: 0 !important;
-    background-color: #FFF !important;
+	border-radius: 0 !important;
+	background-color: #fff !important;
 }
 
 .card-documentos {
-    border-radius: 16px;
-    width: 100%;
-    background-color: rgba(22, 119, 255, 0.05);
+	border-radius: 16px;
+	width: 100%;
+	background-color: rgba(22, 119, 255, 0.05);
 }
+
+.pagination-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 20px;
+}
+
+.pagination a {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+    margin: 0 2px;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .pagination a:hover:not(.active) {background-color: #ddd;}

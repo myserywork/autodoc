@@ -40,9 +40,9 @@ $lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self
 
 // Login / Logout
 $lang['login_successful']                   = 'Sessão iniciada com sucesso';
-$lang['login_unsuccessful']                 = 'Usuário ou senha inválidos';
+$lang['login_unsuccessful']                 = 'Usuário, senha ou localidade inválidos';
 $lang['login_unsuccessful_not_active']      = 'A conta está desativada';
-$lang['login_timeout']                      = 'Conta temporariamente bloqueada. Tente novamente mais tarde';
+$lang['login_timeout']                      = 'Conta temporariamente bloqueada. Tente novamente em 10 minutos.';
 $lang['logout_successful']            		= 'Sessão encerrada com sucesso';
 
 // Account Changes
@@ -73,3 +73,7 @@ $lang['email_forgot_password_heading']    	= 'Redefinido a senha para %s';
 $lang['email_forgot_password_subheading'] 	= 'Por favor, clique neste link para %s.';
 $lang['email_forgot_password_link']       	= 'Redefina sua senha';
 
+// New Password Email
+$lang['email_new_password_subject']         = 'Nova senha';
+$lang['email_new_password_heading']    		= 'Nova senha para %s';
+$lang['email_new_password_subheading'] 		= 'Sua senha foi redefinida para: %s';

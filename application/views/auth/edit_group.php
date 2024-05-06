@@ -15,6 +15,9 @@
             <?php echo form_input($group_description);?>
       </p>
 
-      <p><?php echo form_submit('submit', lang('edit_group_submit_btn'));?></p>
+      <div class="btn-group mt-3">
+          <a href="<?=base_url('auth/index');?>" class="btn btn-secondary">Voltar</a>
+      <?php echo form_submit('submit', lang('edit_group_submit_btn'), "class='btn btn-primary'");?>
+      </div>
 
 <?php echo form_close();?>

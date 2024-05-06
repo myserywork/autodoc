@@ -82,12 +82,14 @@
                             Documentos
                         </a>
                     </li>
-                    <li>
-                        <a href="<?=base_url('config');?>" class="nav-link <?=(($title == "Configurações" ? "active" : "link-dark"));?>">
-                            <img src="<?= base_url(); ?>/assets/img/icons/sidebar-config.svg" />
-                            Configurações
-                        </a>
-                    </li>
+                    <?php if ($this->ion_auth->is_admin()): ?>
+                        <li>
+                            <a href="<?=base_url('auth');?>" class="nav-link <?=(($title == "Configurações" ? "active" : "link-dark"));?>">
+                                <img src="<?= base_url(); ?>/assets/img/icons/sidebar-config.svg" />
+                                Configurações
+                            </a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </nav>

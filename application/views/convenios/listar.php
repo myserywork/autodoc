@@ -19,11 +19,11 @@
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </span>
                             </div>
-                            <input type="text" class="form-control" placeholder="Pesquisar por nome...">
+                            <input id="nameOrNumberSearch" type="text" class="form-control" placeholder="Pesquisar por nome ou número...">
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <select class="form-select" aria-label="Default select example">
+                        <select id="searchStatus" class="form-select" aria-label="Default select example">
                             <option selected>Selecione o Status...</option>
                             <option value="Assinatura Pendente Registro TV Siafi">Assinatura Pendente Registro TV Siafi</option>
                             <option value="Aguardando Prestação de Contas">Aguardando Prestação de Contas</option>
@@ -47,7 +47,7 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <select class="form-select" aria-label="Default select example">
+                        <select id="searchEstado" class="form-select" aria-label="Default select example">
                             <option selected>Selecione o Estado...</option>
                             <option value="AC">Acre</option>
                             <option value="AL">Alagoas</option>
@@ -79,7 +79,7 @@
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <input id="startDate" class="form-control" type="date" />
+                        <input id="searchDate" class="form-control" type="date" />
                     </div>
                 </div>
             </div>
@@ -91,93 +91,12 @@
 <div id="list" class="row convenio-list" style="background-color:#FFF;border-radius:15px;">
     <div id="cards-container" class="w-80 mt-5 mb-3">
     </div>
+    
 </div>
 
-
-<script>
-    function obterCorPorStatus($status) {
-        switch ($status) {
-            case 'Prestação de Contas Concluída':
-            case 'Prestação de Contas Aprovada':
-            case 'Proposta/Plano de Trabalho Aprovado':
-            case 'Em execução':
-                return '#14B240'; // verde para status positivos (bright green)
-            case 'Prestação de Contas em Análise':
-            case 'Prestação de Contas em Complementação':
-            case 'Aguardando Prestação de Contas':
-            case 'Prestação de Contas Aprovada com Ressalvas':
-            case 'Prestação de Contas Iniciada Por Antecipação':
-            case 'Proposta/Plano de Trabalho Complementado Enviado para Análise':
-            case 'Prestação de Contas enviada para Análise':
-            case 'Proposta/Plano de Trabalho Complementado em Análise':
-            case 'Prestação de Contas Comprovada em Análise':
-            case 'Assinatura Pendente Registro TV Siafi':
-                return '#FF8743';
-            case 'Cancelado':
-            case 'Prestação de Contas Rejeitada':
-            case 'Convênio Anulado':
-            case 'Inadimplente':
-            case 'Convênio Rescindido':
-                return '#FF4869'; // vermelho para status negativos (bright red)
-            default:
-                return '#000000'; // preto para outros casos (black)
-        }
-    }
-
-    function carregarCards() {
-        const cardsContainer = document.getElementById('cards-container');
-
-        // Substitua a URL da API pela URL da sua API
-        const base_url = $('#base_url').val();
-        const apiUrl = base_url + 'convenios/getConvenios';
-
-
-        fetch(apiUrl) // Faz uma requisição GET para a API
-            .then(response => {
-                // Verifica se a requisição foi bem sucedida
-                if (!response.ok) {
-                    throw new Error('Erro ao carregar os dados');
-                }
-                // Converte a resposta para JSON
-                return response.json();
-            })
-            .then(data => {
-                // Itera sobre os dados e cria os cards
-                data.forEach(item => {
-                    // Cria um elemento <div> para o card
-                    const card = document.createElement('div');
-                    card.classList.add('card', 'w-100', 'mb-3');
-
-                    // Adiciona o conteúdo ao card
-                    card.innerHTML = `
-                    <div class="card-body card-convenios">
-                        <h5 class="card-title mb-3 convenio-card-state">${item.MUNIC_PROPONENTE} - ${item.UF_PROPONENTE}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted convenio-card-title">
-                            <a href="${base_url}documentos/modelo/${item.NR_CONVENIO}">${item.OBJETO_PROPOSTA}</a></h6>
-                        
-                        <div class="row">
-                            <div class="col-md-6">                                
-                                <p class="card-text convenio-card-status">
-                                    Status: <font style="color:${obterCorPorStatus(item.SIT_CONVENIO)}">${item.SIT_CONVENIO}</font>
-                                </p>
-                            </div>
-                            <div class="col-md-6">                                
-                                <p class="convenio-card-dates" style="text-align: right">
-                                    INÍCIO DA VIGÊNCIA: ${item['inicio']}  FIM: ${item['fim']}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                    // Adiciona o card ao container
-                    cardsContainer.appendChild(card);
-                });
-            })
-            .catch(error => {
-                console.error('Erro ao carregar os dados:', error);
-            });
-    }
-
-    // Chama a função para carregar os cards quando a página carrega
-    document.addEventListener('DOMContentLoaded', carregarCards);
-</script>
+<div class="row">
+    <div class="pagination-container">
+        <ul id="pagination" class="pagination" >
+        </ul>
+    </div>
+</div>

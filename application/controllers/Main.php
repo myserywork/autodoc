@@ -14,8 +14,14 @@ class Main extends MY_Controller {
 
 	public function index()
 	{
+
+		$this->data['countConvenios'] = $this->convenios_model->countAllConvenios();
+		$where = "SIT_CONVENIO ='Prestação de Contas Concluída'";
+		$this->data['conveniosAprovados'] = $this->convenios_model->countConveniosWithWhere($where);
+		$where = 'SIT_CONVENIO IS NOT NULL AND SIT_CONVENIO <> Cancelado';
+		$this->data['conveniosPendentes'] = $this->convenios_model->countConveniosWithWhere($where);
 	
-		$this->data['documentos'] = $this->documentos_model->getTop100Documentos();
+		$this->data['documentos'] = $this->documentos_model->getTop5Documentos();
 
 		$this->data['css_to_load'] = array();
 		$this->data['js_to_load'] = array();

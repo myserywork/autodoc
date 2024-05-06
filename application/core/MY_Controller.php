@@ -89,4 +89,12 @@ class MY_Controller extends CI_Controller
                   LIMIT 10";
         return $this->db->query($query)->result();
     }
+
+    public function preventSqlInjection($text) {
+		// Preventing SQL Injection
+		$text = $this->db->escape_str($text);
+		$text = str_replace('%', '\%', $text);
+		$text = str_replace('_', '\_', $text);
+		return $text;
+	}
 }

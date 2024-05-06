@@ -202,8 +202,7 @@ return true;
                             console.log("Login com Sucesso!");
                             window.location.href = '<?= base_url(); ?>';
                         } else {
-                            // Display an error message
-                            
+                            // Display an error message                            
                             $('#error-message').text(response.msg).show();
                         }
                     },

@@ -35,6 +35,8 @@
             <?php echo form_input($password_confirm);?>
       </p>
 
+      <div class="row">
+
       <?php if ($this->ion_auth->is_admin()): ?>
 
           <h3><?php echo lang('edit_user_groups_heading');?></h3>
@@ -47,9 +49,14 @@
 
       <?php endif ?>
 
+      </div>
+
       <?php echo form_hidden('id', $user->id);?>
       <?php echo form_hidden($csrf); ?>
 
-      <p><?php echo form_submit('submit', lang('edit_user_submit_btn'));?></p>
+      <div class="btn-group mt-3">
+          <a href="<?=base_url('auth/index');?>" class="btn btn-secondary">Voltar</a>
+      <?php echo form_submit('submit', lang('edit_user_submit_btn'), "class='btn btn-primary'");?>
+      </div>
 
 <?php echo form_close();?>

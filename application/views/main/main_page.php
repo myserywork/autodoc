@@ -89,17 +89,14 @@
                     <div class="card-body" style="border-radius: 8px;background: #FFF;">
                         <div class="row mb-3 main-card-convenios-text" style="padding-left: 1em;">Convênios Aprovados</div>
                         <div class="row mb-3 mt-3">
-                            <font class="main-card-convenios-numbers">12</font>
+                            <font class="main-card-convenios-numbers"><?=$conveniosAprovados;?></font>
                         </div>
                         <div class="progress">
-                            <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div class="row mt-3">
-                            <small>231 convênios em análise</small>
-                        </div>             
+                            <div class="progress-bar" role="progressbar" style="width: <?=($conveniosAprovados*100/$countConvenios);?>%" aria-valuenow="<?=($conveniosAprovados*100/$countConvenios);?>" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>          
                         <div class="row mt-3">
                             <div class="row">
-                                <a href="#" class="btn btn-primary center-block align-bottom" style="width: 80%;border-radius: 8px;float:inline-end;">Ver Convênios</a>
+                                <a href="<?=base_url('convenios');?>" class="btn btn-primary center-block align-bottom" style="width: 80%;border-radius: 8px;float:inline-end;">Ver Convênios</a>
                             </div>
                         </div>
                     </div>
@@ -117,17 +114,14 @@
                     <div class="card-body" style="border-radius: 8px;background: #FFF;">
                         <div class="row mb-3 main-card-convenios-text" style="padding-left: 1em;">Convênios em Análise</div>
                         <div class="row mb-3 mt-3">
-                            <font class="main-card-convenios-numbers">36</font>
+                            <font class="main-card-convenios-numbers"><?=$conveniosPendentes;?></font>
                         </div>
                         <div class="progress">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                        <div class="row mt-3">
-                            <small>231 convênios em análise</small>
-                        </div>             
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: <?=($conveniosPendentes*100/$countConvenios);?>%" aria-valuenow="<?=($conveniosPendentes*100/$countConvenios);?>" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>           
                         <div class="row mt-3">
                             <div class="row">
-                                <a href="#" class="btn btn-primary center-block align-bottom" style="width: 80%;border-radius: 8px;float:inline-end;">Ver Convênios</a>
+                                <a href="<?=base_url('convenios');?>" class="btn btn-primary center-block align-bottom" style="width: 80%;border-radius: 8px;float:inline-end;">Ver Convênios</a>
                             </div>
                         </div>
                     </div>

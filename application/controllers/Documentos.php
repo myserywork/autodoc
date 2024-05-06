@@ -16,7 +16,9 @@ class Documentos extends MY_Controller
     public function index()
     {
         $this->data['css_to_load'] = array();
-        $this->data['js_to_load'] = array();
+        $this->data['js_to_load'] = array(
+            'js/documentos/listar.js'
+        );
         $this->data['title'] = 'Documentos';
         $this->data['view'] = 'documentos/listar';
         $this->_render_view('theme/model');
@@ -90,9 +92,15 @@ class Documentos extends MY_Controller
             // Carregar a view que deseja transformar em PDF
             $html = $documento->texto;
 
+            $user = $this->ion_auth->user()->row();
+
+            $html .= '<p style="text-align: center;padding-top:45px">
+            <hr width="40%" />
+            <h3 style="text-align: center;">'. $user->first_name .' ' . $user->last_name . '</h3>
+            </p>';
+
             // Carregar HTML no DomPDF
-            $this->dompdf_lib->load_html($html);
-            
+            $this->dompdf_lib->load_html($html);            
 
             // Renderizar PDF
             $this->dompdf_lib->render();
@@ -238,7 +246,27 @@ class Documentos extends MY_Controller
     }
 
     function getDocumentos() {
-		$documentos = $this->documentos_model->getTop100Documentos();
-		echo json_encode($documentos);
-	}
+        $page = $this->input->get('page') ?? 1;
+        $perPage = 2;
+
+        $searchNome = $this->preventSqlInjection($this->input->get('searchNome')) ?? '';
+        $searchNumeroConvenio = $this->preventSqlInjection($this->input->get('searchNumeroConvenio')) ?? '';
+        $searchTipo = $this->preventSqlInjection($this->input->get('searchTipo')) ?? '';
+
+        $totalDocuments = $this->documentos_model->countDocumentos($searchNome, $searchNumeroConvenio, $searchTipo);
+        $totalPages = ceil($totalDocuments / $perPage);
+
+        $offset = ($page - 1) * $perPage;
+        $documentos = $this->documentos_model->getDocumentosPaginated($offset, $perPage, $searchNome, $searchNumeroConvenio, $searchTipo);
+
+        $response = [
+            'page' => $page,
+            'perPage' => $perPage,
+            'totalPages' => $totalPages,
+            'totalDocuments' => $totalDocuments,
+            'data' => $documentos
+        ];
+
+        echo json_encode($response);
+    }
 }
