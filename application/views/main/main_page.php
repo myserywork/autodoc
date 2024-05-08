@@ -17,7 +17,7 @@
                             </div>
                         </div>
                         <div class="row mt-3 main-card-text">
-                            <font class="main-card-text">Modelos</font>
+                            <a href="<?=base_url('auth');?>" style='text-decoration: none'><font class="main-card-text">Modelos</font></a>
                         </div>
                     </div>
                 </div>
@@ -31,11 +31,12 @@
                             </div>
                         </div>
                         <div class="row mt-3 main-card-text">
-                            <font class="main-card-text">Histórico</font>
+                            <a href="<?=base_url('auth');?>" style='text-decoration: none'><font class="main-card-text">Histórico</font></a>
                         </div>
                     </div>
                 </div>
             </div>
+            <?php if ($this->ion_auth->is_admin()): ?>
             <div class="col-md-4">
                 <div class="card">
                     <div class="card-body" style="height:100px;border-radius: 8px;background: #FAF1D0;">
@@ -45,11 +46,27 @@
                             </div>
                         </div>
                         <div class="row mt-3 main-card-text">
-                            <font class="main-card-text">Configurações do Sistema</font>
+                            <a href="<?=base_url('auth');?>" style='text-decoration: none'><font class="main-card-text">Configurações do Sistema</font></a>
                         </div>
                     </div>
                 </div>
             </div>
+            <?php else: ?>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body" style="height:100px;border-radius: 8px;background: #FAF1D0;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img width="32px" height="32px" src="<?php echo base_url('assets/img/main/'); ?>config-icon-card-3.svg" style="float: left;">
+                            </div>
+                        </div>
+                        <div class="row mt-3 main-card-text">
+                            <a href="<?=base_url('convenios');?>" style='text-decoration: none'><font class="main-card-text">Convênios</font></a>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <?php endif; ?>
         </div>
         <div class="clearfix m-b-5"></div>
         <div class="row mt-5">

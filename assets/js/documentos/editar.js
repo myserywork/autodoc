@@ -1,10 +1,29 @@
 var quill;
 var documentoId;
 
+function debounce(func, wait, immediate) {
+	var timeout;
+	return function () {
+		var context = this,
+			args = arguments;
+		var later = function () {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		var callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+}
+
 function salvarConteudo() {
 	var conteudoHtml = quill.root.innerHTML; // Obter o HTML do editor
 	var nome = $("#nomeModelo").val();
 	var tipo = $("#tipoConvenio option:selected").text();
+	if(convenioId == undefined || convenioId == "" || convenioId == null) {
+		convenioId = $("#selectConvenio").val();
+	}
 	if (nome == "" || nome.length < 3) {
 		swal({
 			title: "Informe o nome do modelo com pelo menos 3 caracteres!",
@@ -23,6 +42,11 @@ function salvarConteudo() {
 		});
 		return;
 	}
+
+	if(defaultModel == true && convenioId != "" && convenioId != null) {
+		documentoId = "";
+	}
+
 
 	$.ajax({
 		type: "POST",
@@ -75,10 +99,17 @@ function selectLocalImage() {
 
 function uploadAndResizeImage(file) {
 	const reader = new FileReader();
+	var run = false;
+	var _align;
 	reader.onload = (e) => {
 		const img = document.createElement("img");
 		img.src = e.target.result;
 		img.onload = function () {
+			if (run) {
+				run = false;
+				return;
+			}
+			run = true;
 			const range = quill.getSelection();
 			const resize = window.prompt(
 				'Enter custom width (e.g., "300px" or "100%"):'
@@ -88,6 +119,11 @@ function uploadAndResizeImage(file) {
 			}
 			const align = window.prompt("Enter alignment (left, center, right):");
 			if (align) {
+				if(align != "left" && align != "center" && align != "right") {
+					alert("Opção inválida, por favor insira uma opção válida: left, center ou right");
+					return;
+				}
+				_align = 'align-' + align;
 				img.style.display = "block";
 				img.style.marginLeft = align === "center" ? "auto" : "0";
 				img.style.marginRight = align === "center" ? "auto" : "0";
@@ -104,8 +140,11 @@ function uploadAndResizeImage(file) {
 				.then((response) => response.json())
 				.then((result) => {
 					if (result.status === "success") {
-                        console.log("HTML IMG: " + new_img.outerHTML)
-                        quill.insertEmbed(range.index, 'pBlot', new_img.outerHTML);
+						console.log(result);
+						console.log("HTML IMG: " + img.outerHTML);
+						img.src = result.url;
+						quill.insertEmbed(range.index, "pBlot", { html: img.outerHTML, cssClass: _align});
+						_align = '';
 						quill.setSelection(range.index + 1);
 					} else {
 						console.error(result.error);
@@ -173,25 +212,30 @@ $(document).ready(function () {
 	ImageBlot.tagName = "img";
 	Quill.register({ "formats/imageBlot": ImageBlot });
 
-    let BlockEmbed = Quill.import('blots/block');
-    class PBlot extends BlockEmbed {
-        static create(value) {
-            console.log(value);
-          let node = super.create(value);
-          node.innerHTML = value;
-          return node;
-        }
-        static value(node) {
-          return node.innerHTML;
-        }
-      }
-      
-      PBlot.blotName = 'pBlot';
-      PBlot.tagName = 'p';
-      
-      Quill.register({ "formats/pBlot": PBlot });
+	let BlockEmbed = Quill.import("blots/block");
+	class PBlot extends BlockEmbed {
+		static create(value) {
+			console.log(value);
+			let node = super.create(value);
+			node.innerHTML = value.html;
+			node.className = value.cssClass;
+			return node;
+		}
+		static value(node) {
+			return {
+				html: node.innerHTML,
+				cssClass: node.className,
+			};
+		}
+	}
+
+	PBlot.blotName = "pBlot";
+	PBlot.tagName = "p";
+
+	Quill.register({ "formats/pBlot": PBlot });
 
 	var toolbarOptions = [
+		[{ align: '' }, { align: 'center' }, { align: 'right' }, { align: 'justify' }],
 		["bold", "italic", "underline", "strike"],
 		["blockquote", "code-block"],
 		[
@@ -233,10 +277,10 @@ $(document).ready(function () {
 	quill = new Quill("#editor", options);
 
 	if (typeof documento !== "undefined") {
-        quill.disable();
-        quill.root.innerHTML = documento.texto;
+		quill.disable();
+		quill.root.innerHTML = documento.texto;
 		//quill.clipboard.dangerouslyPasteHTML(0, documento.texto);
-        quill.enable();
+		quill.enable();
 	}
 
 	$(".ql-insertCustomTags").on("change", function () {
@@ -262,4 +306,49 @@ $(document).ready(function () {
 	quill.getModule("toolbar").addHandler("image", () => {
 		selectLocalImage();
 	});
+
+	$("#numeroConvenio").keyup(
+		debounce(function () {
+			numeroConvenio = $("#numeroConvenio").val();
+			selectConvenio = document.getElementById("selectConvenio");
+
+			if (numeroConvenio.length < 3 || numeroConvenio == "") {
+				return;
+			}
+
+			$.ajax({
+				type: "GET",
+				url: $("#base_url").val() + "documentos/searchConvenios",
+				data: {
+					numeroConvenio: numeroConvenio
+				},
+				dataType: 'json',
+				success: function (response) {		
+					console.log(response);
+					$('#selectConvenio').empty()
+					selectConvenio.style.display = "block";			
+					$('#selectConvenio').append($('<option data-hidden="true">').text("Selecione um convênio..."));
+                    $.each(response, function (index, element) {
+                        $('#selectConvenio').append($('<option>', {
+                            value: element.val,
+                            text: element.text
+                        }));
+                    });				
+				},
+				error: function (response) {
+					swal({
+						title: "Opss!",
+						text: 'Tivemos um erro ao consultar o convenio, tente novamente mais tarde!',
+						icon: "error",
+					});
+				},
+			});
+		}, 650)
+	);
+
+	$("#selectConvenio").change(function(){
+		let selectConvenio = $(this).val();
+		$("#numeroConvenio").val(selectConvenio);
+	});
+
 });

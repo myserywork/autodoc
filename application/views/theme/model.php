@@ -70,17 +70,22 @@
                             Tela de Início
                         </a>
                     </li>
-                    <li>
+                    <li  class="nav-item">
                         <a href="<?=base_url('convenios');?>" class="nav-link <?=(($title == "Convênios" ? "active" : "link-dark"));?>">
                             <img src="<?= base_url(); ?>/assets/img/icons/sidebar-heart.svg" />
                             Convênios
                         </a>
                     </li>
-                    <li>
-                        <a href="<?=base_url('documentos');?>" class="nav-link <?=(($title == "Documentos" ? "active" : "link-dark"));?>">
+                    <li class="nav-item">
+                        <?php /*<?=base_url('documentos');?> */ ?>
+                        <a href="#" class="nav-link <?=(($title == "Documentos" ? "active" : "link-dark"));?>" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" role="button" aria-expanded="false" aria-label="Toggle navigation">
                             <img src="<?= base_url(); ?>/assets/img/icons/sidebar-doc.svg" />
                             Documentos
                         </a>
+                        <ul class="collapse <?=(($title == "Documentos" ? "show" : ""));?>" id="navbarToggleExternalContent" style="background-color:#FAFAFA;border-bottom-left-radius: 16px;border-bottom-right-radius: 16px;;list-style-type: none;">
+                            <li><a class="nav-link link-dark" href="<?= base_url('documentos/modelos'); ?>">Modelos</a></li>
+                            <li><a class="nav-link link-dark" href="<?= base_url('documentos'); ?>">Histórico</a></li>
+                        </ul>
                     </li>
                     <?php if ($this->ion_auth->is_admin()): ?>
                         <li>

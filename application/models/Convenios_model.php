@@ -17,6 +17,15 @@ class Convenios_model extends CI_Model
         return $query->row();
     }
 
+    function searchConvenios($serchWhere) {
+        $this->db->select("NR_CONVENIO AS val, NR_CONVENIO || '/' || ANO_PROP || ' - ' || substr(OBJETO_PROPOSTA, 1, 30) || '...' AS text");
+        $this->db->from('convenios');
+        $this->db->like('NR_CONVENIO', $serchWhere);
+        $this->db->order_by('DIA_INIC_VIGENCIA_PROPOSTA', 'desc');
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     function getConvenios()
     {
         $this->db->select('NR_CONVENIO, NR_PROPOSTA, ANO_PROP');

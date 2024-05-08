@@ -179,6 +179,10 @@ body {
 	background-color: rgba(69, 128, 222, 0.1) !important;
 }
 
+.sub-menu-active {
+	color: #2f74de !important;
+}
+
 .main-content {
 	position: relative;
 	background-color: #f3f5f9;

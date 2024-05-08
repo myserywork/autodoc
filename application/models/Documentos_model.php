@@ -7,13 +7,12 @@ class Documentos_model extends CI_Model
         parent::__construct();
     }
 
-    function countDocumentosPorConvenioENome($id_convenio, $nome) {
-        $this->db->where('id_convenio', $id_convenio);
+    function countDocumentosPorNome($nome) {
         $this->db->where('nome', $nome);
         return $this->db->count_all_results('documentos');
     }
 
-    function countDocumentos($searchNome, $searchNumeroConvenio, $searchTipo) {
+    function countDocumentos($searchNome, $searchNumeroConvenio, $searchTipo, $default = false) {
         $this->db->select('id');
         $this->db->from('documentos');
         if($searchNome != '') {
@@ -25,11 +24,29 @@ class Documentos_model extends CI_Model
         if($searchTipo != '') {
             $this->db->like('tipo', $searchTipo);
         }
+        if($default == true) {
+            $this->db->where('id_convenio', '');
+        }
         return $this->db->count_all_results();
     }
 
+    function getDefaultDocumentsPaginated($offset, $perPage, $searchNome, $searchTipo) {
+        $this->db->select('id,nome,tipo,criado_em');
+        $this->db->from('documentos');
+        $this->db->where('id_convenio', '');
+        if($searchNome != '') {
+            $this->db->like('nome', $searchNome);
+        }
+        if($searchTipo != '') {
+            $this->db->like('tipo', $searchTipo);
+        }
+        $this->db->limit($perPage, $offset);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     function getDocumentosPaginated($offset, $perPage, $searchNome, $searchNumeroConvenio, $searchTipo) {
-        $this->db->select('id,nome,tipo,id_convenio');
+        $this->db->select('id,nome,tipo,id_convenio,criado_em');
         $this->db->from('documentos');
         if($searchNome != '') {
             $this->db->like('nome', $searchNome);

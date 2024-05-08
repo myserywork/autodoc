@@ -13,7 +13,6 @@ class Convenios extends MY_Controller {
 
 	public function index()
 	{
-
 		$this->data['css_to_load'] = array();
 		$this->data['js_to_load'] = array(
 			'js/convenios.js'

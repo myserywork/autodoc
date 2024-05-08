@@ -202,8 +202,9 @@ function carregarCards() {
                 // Adiciona o conteúdo ao card
                 card.innerHTML = `
                 <div class="card-body card-documentos">
+                    <h5 class="card-title mb-1 convenio-card-state"><i class="fa fa-laptop" aria-hidden="true"></i> ${item.tipo}</h5>
                     <h5 class="card-title mb-3 convenio-card-state"><i class="fa fa-calendar" aria-hidden="true"></i>  ${item.criado_em}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted convenio-card-title">
+					<h6 class="card-subtitle mb-2 text-muted convenio-card-title">
                         <a href="${base_url}documentos/modelo/${item.id_convenio}/${item.id}">${item.nome}</a>
                     </h6>
                 </div>

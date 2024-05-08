@@ -10,7 +10,7 @@ class Dompdf_lib {
     public function __construct() {
         $options = new Options();
         $options->set('isRemoteEnabled', TRUE);
-        $options->set('isHtml5ParserEnabled', TRUE);
+        //$options->set('isHtml5ParserEnabled', TRUE);
         $this->dompdf = new Dompdf($options);
     }
 

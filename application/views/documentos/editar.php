@@ -4,6 +4,12 @@ if (isset($convenio)) {
     echo "<script>";
     echo "var convenio = " . json_encode($convenio) . ";";
     echo "var convenioId = " . $convenio->NR_CONVENIO . ";";
+    echo "var defaultModel = false;";
+    echo "</script>";
+} else {
+    echo "<script>";
+    echo "var convenioId = null;";
+    echo "var defaultModel = true;";
     echo "</script>";
 }
 
@@ -21,7 +27,7 @@ if(isset($documento)) {
             <div id="header" class="row">
                 <div class="row">
                     <div class="col-md-1 align-self-right">
-                        <a href="<?=base_url('documentos');?>"><i class="fa fa-long-arrow-left fa-2x" style="color:rgba(0, 0, 0, 0.25)" aria-hidden="true"></i></a>
+                        <a href="<?=isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : base_url('documentos');?>"><i class="fa fa-long-arrow-left fa-2x" style="color:rgba(0, 0, 0, 0.25)" aria-hidden="true"></i></a>
                     </div>
                     <div class="col-md-11 align-self-left">
                         <h1 class="convenio-header">Documentos</h1>
@@ -39,12 +45,20 @@ if(isset($documento)) {
             <form id="convenioForm">
                 <div class="form-group mb-3">
                     <label for="nomeModelo">Número Convênio:</label>
-                    <input type="text" class="form-control" value="<?=$convenio->NR_CONVENIO;?>" disabled>
+                    <?php if (isset($convenio->NR_CONVENIO)) : ?>                    
+                        <input type="text" class="form-control" value="<?=$convenio->NR_CONVENIO;?>" disabled>
+                    <?php else : ?>
+                        <input id="numeroConvenio" type="text" class="form-control  mb-3" placeholder="Procure pelo número do convênio de desejar sincronizar... Caso não informe um convênio, um modelo padrão será criado...">
+                        <select id="selectConvenio" class="form-control selectpicker" data-live-search="true" data-style="input-sm btn-default" style="display:none">
+                        </select>
+                    <?php endif; ?>
                 </div>
+                <?php if (isset($convenio->NR_CONVENIO)) : ?> 
                 <div class="form-group mb-3">
                     <label for="nomeModelo">Convênio:</label>
-                    <textarea class="form-control" disabled><?=$convenio->OBJETO_PROPOSTA;?></textarea>
+                    <textarea class="form-control" disabled><?=isset($convenio->OBJETO_PROPOSTA) ? $convenio->OBJETO_PROPOSTA : '';?></textarea>
                 </div>
+                <?php endif; ?>
                 <div class="form-group mb-3">
                     <label for="nomeModelo">Nome do Modelo:</label>
                     <input type="text" id="nomeModelo" class="form-control" value="<?=((isset($documento)) ? $documento->nome : "");?>" name="nome_modelo">
@@ -60,6 +74,7 @@ if(isset($documento)) {
                         <option value="Outros" <?=((isset($documento) && $documento->tipo == "Outros") ? "selected" : "");?>>Outros</option>
                     </select>
                 </div>
+                <?php if (isset($convenio->NR_CONVENIO)) : ?>
                 <div class="form-group mb-3">
                     <label for="selectConvenio">Informações do Convênio:</label>
                     <select class="form-select ql-insertCustomTags" style="margin-bottom: 10px;">
@@ -71,6 +86,7 @@ if(isset($documento)) {
                         ?>
                     </select>
                 </div>
+                <?php endif; ?>
                 <div id="editor" class="form-control mb-3" style="height: 200px;"></div>                
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <?php if(isset($documento)) { ?>
