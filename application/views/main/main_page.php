@@ -17,7 +17,7 @@
                             </div>
                         </div>
                         <div class="row mt-3 main-card-text">
-                            <a href="<?=base_url('auth');?>" style='text-decoration: none'><font class="main-card-text">Modelos</font></a>
+                            <a href="<?=base_url('documentos/modelos');?>" style='text-decoration: none'><font class="main-card-text">Modelos</font></a>
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div class="row mt-3 main-card-text">
-                            <a href="<?=base_url('auth');?>" style='text-decoration: none'><font class="main-card-text">Histórico</font></a>
+                            <a href="<?=base_url('documentos');?>" style='text-decoration: none'><font class="main-card-text">Histórico</font></a>
                         </div>
                     </div>
                 </div>
